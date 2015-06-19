@@ -6,16 +6,12 @@ use Admin\Controllers\UserController;
 use Admin\Service\IndexService;
 use Admin\Service\UserService;
 use Admin\Table\User;
-use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 use Zend\Mvc\Controller\ControllerManager;
-use Zend\Mvc\MvcEvent;
-use Zend\ServiceManager\ServiceManager;
 
 class Module implements AutoloaderProviderInterface,
                         ConfigProviderInterface,

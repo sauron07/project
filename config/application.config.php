@@ -15,6 +15,7 @@ return array(
         'ZfTable',
 
         //Custom modules
+        'Redis',
         'Application',
         'User',
         'Admin'
