@@ -14,8 +14,8 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Http\Response as HttpResponse;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Mvc\View\Http\RouteNotFoundStrategy;
+use Zend\Mvc\View\Console\RouteNotFoundStrategy as ConsoleRouteNotFoundStrategy;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class UnauthorizedStrategy implements ListenerAggregateInterface
@@ -29,7 +29,11 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
     /** @var  AuthenticationService */
     protected $authenticationService;
 
-    public function __construct(RouteNotFoundStrategy $notFoundStrategy, AuthenticationService $authenticationService)
+    /**
+     * @param ConsoleRouteNotFoundStrategy|RouteNotFoundStrategy $notFoundStrategy
+     * @param AuthenticationService $authenticationService
+     */
+    public function __construct($notFoundStrategy, AuthenticationService $authenticationService)
     {
         $this->notFoundStrategy = $notFoundStrategy;
         $this->authenticationService = $authenticationService;

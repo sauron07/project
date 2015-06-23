@@ -39,9 +39,6 @@ class UserRegister
         $criteria = ['roleId' => $config['zfcuser']['new_user_default_role']];
         /** @var \User\Entity\Role $defaultUserRole */
         $defaultUserRole = $em->getRepository('User\Entity\Role')->findOneBy($criteria);
-        /** @var \User\Entity\State $userState */
-        $userState = $em->getRepository('User\Entity\State')->find($user->getState());
-        $user->setState($userState);
 
         if($defaultUserRole !== null){
             $user->addRole($defaultUserRole);

@@ -50,7 +50,7 @@ class RedisStorage
         $cache = StorageFactory::factory($this->config['redis']);
 
         // If database is set in the config use it
-        if (isset($this->config['redis']['adapter']['options']['database'])) {
+        if (array_key_exists('database', $this->config['redis']['adapter']['options'])) {
             $cache->getOptions()->setDatabase($this->config['redis']['adapter']['options']['database']);
         }
 

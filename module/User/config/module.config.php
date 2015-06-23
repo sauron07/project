@@ -14,6 +14,9 @@ return [
             ]
         ]
     ],
+    'data-fixture' => array(
+        'User_fixture' => __DIR__ . '/../src/User/Fixtures',
+    ),
     'view_manager'    => array(
         'template_path_stack' => array(
             'zfc-user' => __DIR__ . '/../view'

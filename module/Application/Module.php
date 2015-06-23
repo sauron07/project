@@ -8,6 +8,8 @@ use Application\View\UnauthorizedStrategy;
 use Redis\Service\RedisStorage;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\Http\RouteNotFoundStrategy;
@@ -22,6 +24,15 @@ use Zend\Stdlib\InitializableInterface;
 class Module implements ServiceProviderInterface,
                         ControllerProviderInterface
 {
+    /**
+     * @param ModuleManager $moduleManager
+     */
+    public function init(ModuleManager $moduleManager)
+    {
+        $events = $moduleManager->getEventManager();
+        $events->attach(ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'));
+    }
+
     /**
      * @param MvcEvent $e
      */
@@ -49,6 +60,24 @@ class Module implements ServiceProviderInterface,
             $instance->init();
         }
         return $instance;
+    }
+
+    /**
+     * Remove entities from dudapiotr module to use orm:create without creating extra tables (customer and product)
+     *
+     * @param ModuleEvent $e
+     */
+    public function onMergeConfig(ModuleEvent $e)
+    {
+        $configListener = $e->getConfigListener();
+        $config         = $configListener->getMergedConfig(false);
+
+        if (array_key_exists('application_entities', $config['doctrine']['driver'])) {
+            unset($config['doctrine']['driver']['application_entities'],
+                  $config['doctrine']['driver']['orm_default']['drivers']['ZfTable\Entity']
+            );
+        }
+        $configListener->setMergedConfig($config);
     }
 
     /**

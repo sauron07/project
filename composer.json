@@ -20,6 +20,7 @@
         "rwoverdijk/assetmanager": "^1.4",
         "dudapiotr/zftable": "^3.1",
         "acelaya/zf2-acmailer": "~5.0",
-        "jaz303/phake": "^0.6.0"
+        "jaz303/phake": "^0.6.0",
+        "hounddog/doctrine-data-fixture-module": "0.0.*"
     }
 }

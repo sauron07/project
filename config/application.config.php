@@ -6,6 +6,7 @@ return array(
         'ZendDeveloperTools',
         'DoctrineModule',
         'DoctrineORMModule',
+        'DoctrineDataFixtureModule',
         'ZfcBase',
         'ZfcUser',
         'ZfcUserDoctrineORM',
@@ -15,8 +16,8 @@ return array(
         'ZfTable',
 
         //Custom modules
-        'Redis',
         'Application',
+        'Redis',
         'User',
         'Admin'
 

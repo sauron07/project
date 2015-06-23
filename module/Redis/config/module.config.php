@@ -11,7 +11,7 @@ return [
                         'port' => 6379,
                     ],
                     // optional db identifier
-                    'database' => 0,
+//                    'database' => 0,
                 ]
             ]
         ],
