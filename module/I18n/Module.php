@@ -1,6 +1,6 @@
 <?php
 
-namespace L10n;
+namespace I18n;
 
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;

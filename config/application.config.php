@@ -17,6 +17,7 @@ return array(
 
         //Custom modules
         'Application',
+        'I18n',
         'Redis',
         'User',
         'Admin'
