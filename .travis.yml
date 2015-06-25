@@ -23,7 +23,7 @@ before_install:
     - mysql -e "create database IF NOT EXISTS home;" -uroot
 
 install:
-   - composer install --prefer-dist --no-interaction
+   - composer install --prefer-source --no-interaction
 
 before_script:
    - echo 'extension=redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
