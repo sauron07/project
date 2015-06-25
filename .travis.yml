@@ -18,9 +18,10 @@ services:
 
 before_script:
     - composer self-update
+    - mysql -e "create database IF NOT EXISTS home;" -uroot
 
 install:
-   - composer install
+   - composer update
 
 script:
-   - ./phake db:createDB && ./phake db:clear
+   - ./phake db:clear
