@@ -12,4 +12,14 @@ matrix:
   allow_failures:
     - php: hhvm
     - php: hhvm-nightly
+
+services:
+  - redis-server
+
+before_install:
+    - composer self-update
+
+install:
+   - composer install
+
 script: build.sh
