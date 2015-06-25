@@ -3,6 +3,7 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7
   - hhvm
   - nightly
 # run build against hhvm but allow them to fail
@@ -10,8 +11,9 @@ php:
 matrix:
   fast_finish: true
   allow_failures:
+    - php: 7
     - php: hhvm
-    - php: hhvm-nightly
+    - php: nightly
 
 services:
   - redis-server
@@ -19,6 +21,7 @@ services:
 before_script:
     - composer self-update
     - mysql -e "create database IF NOT EXISTS home;" -uroot
+    - echo 'extension=redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 install:
    - composer update
