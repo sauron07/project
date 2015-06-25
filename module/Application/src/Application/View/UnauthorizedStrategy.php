@@ -8,7 +8,6 @@
 
 namespace Application\View;
 
-
 use Zend\Authentication\AuthenticationService;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -23,7 +22,7 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
     /** @var \Zend\Stdlib\CallbackHandler[] */
     protected $listeners = array();
 
-    /** @var RouteNotFoundStrategy  */
+    /** @var RouteNotFoundStrategy */
     protected $notFoundStrategy;
 
     /** @var  AuthenticationService */
@@ -31,11 +30,11 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
 
     /**
      * @param ConsoleRouteNotFoundStrategy|RouteNotFoundStrategy $notFoundStrategy
-     * @param AuthenticationService $authenticationService
+     * @param AuthenticationService                              $authenticationService
      */
     public function __construct($notFoundStrategy, AuthenticationService $authenticationService)
     {
-        $this->notFoundStrategy = $notFoundStrategy;
+        $this->notFoundStrategy      = $notFoundStrategy;
         $this->authenticationService = $authenticationService;
     }
 
@@ -58,8 +57,8 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
      */
     public function detach(EventManagerInterface $events)
     {
-        foreach ($this->listeners as $index => $listener){
-            if($events->detach($listener)){
+        foreach ($this->listeners as $index => $listener) {
+            if ($events->detach($listener)) {
                 unset($this->listeners[$index]);
             }
         }
@@ -69,33 +68,34 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
     {
         //Do nothing if the result is a response object
         $result = $e->getResult();
-        if($result instanceof Response){
+        if ($result instanceof Response) {
             return;
         }
 
         $router = $e->getRouter();
-        $match = $e->getRouteMatch();
+        $match  = $e->getRouteMatch();
 
         $response = $e->getResponse();
-        if(!$response){
+        if (!$response) {
             $response = new HttpResponse();
             $e->setResponse($response);
         }
 
         // if route not found go to 404 page
-        if($match === null){
+        if ($match === null) {
             $this->notFoundStrategy->prepareNotFoundViewModel($e);
+
             return;
         }
 
         //get url to the zfcuser/login route
         $options['name'] = 'zfcuser/login';
         //redirect if needed to show login form on admin/ route not only admin/login
-        if(strpos($match->getMatchedRouteName(), 'zfcadmin') >= 0){
+        if (strpos($match->getMatchedRouteName(), 'zfcadmin') >= 0) {
             $options['name'] = 'zfcadmin/login';
         }
 
-        if($this->authenticationService->hasIdentity() && $this->authenticationService->getIdentity()->isAdmin()) {
+        if ($this->authenticationService->hasIdentity() && $this->authenticationService->getIdentity()->isAdmin()) {
             $options['name'] = 'zfcadmin';
         }
 
@@ -103,12 +103,12 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
 
         // Work out where were we trying to het to
         $options['name'] = $match->getMatchedRouteName();
-        $redirect = $router->assemble($match->getParams(), $options);
+        $redirect        = $router->assemble($match->getParams(), $options);
 
         // Set up response to redirect to login page
 
         //remove in production env
-        $response->getHeaders()->addHeaderLine('Location', $url . '?redirect='.$redirect);
+        $response->getHeaders()->addHeaderLine('Location', $url . '?redirect=' . $redirect);
         $response->setStatusCode(302);
 
     }

@@ -8,15 +8,15 @@
 
 namespace Admin\Service;
 
-
 use Application\Interfaces\EntityManagerAwareInterface;
 use Application\Interfaces\TranslatorAwareInterface;
 use Application\Traits\EntityManagerAwareTrait;
 use User\Repository\UserRepository;
 use Application\Traits\TranslatorAwareTrait;
 
-class UserService implements EntityManagerAwareInterface,
-                             TranslatorAwareInterface
+class UserService implements
+    EntityManagerAwareInterface,
+    TranslatorAwareInterface
 {
     use EntityManagerAwareTrait;
     use TranslatorAwareTrait;
@@ -27,7 +27,7 @@ class UserService implements EntityManagerAwareInterface,
     {
         /** @var UserRepository $userRepo */
         $userRepo = $this->getEntityManager()->getRepository('User\Entity\User');
+
         return $userRepo->getUsers();
     }
-
 }

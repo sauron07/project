@@ -8,7 +8,6 @@
 
 namespace User\Service;
 
-
 use Zend\EventManager\Event;
 
 /**

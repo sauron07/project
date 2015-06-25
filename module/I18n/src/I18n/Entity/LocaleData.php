@@ -111,7 +111,4 @@ class LocaleData
     {
         $this->locale = $locale;
     }
-
-
 }
-

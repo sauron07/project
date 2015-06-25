@@ -8,7 +8,6 @@
 
 namespace I18n\Loader;
 
-
 use Doctrine\ORM\EntityManager;
 use Zend\I18n\Translator\Loader\RemoteLoaderInterface;
 
@@ -33,12 +32,14 @@ class DbLoader implements RemoteLoaderInterface
     public function load($locale, $textDomain)
     {
         /** @var \I18n\Repository\LocateData $repo */
-        $repo = $this->em->getRepository('I18n\Entity\LocaleData');
-        $result = $repo->getTranslationsByLocale($locale);
-        $messages = array_reduce($result, function($message, $item){
+        $repo     = $this->em->getRepository('I18n\Entity\LocaleData');
+        $result   = $repo->getTranslationsByLocale($locale);
+        $messages = array_reduce($result, function ($message, $item) {
             $message[$item['alias']] = $item['data'];
+
             return $message;
         });
+
         return $messages;
     }
 }

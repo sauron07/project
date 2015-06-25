@@ -3,6 +3,7 @@
 <?php
 if (!$this->enableRegistration) {
     print "Registration is disabled";
+
     return;
 }
 $form = $this->registerForm;
@@ -12,7 +13,7 @@ $form->setAttribute('method', 'post');
 ?>
 
 <?php echo $this->form()->openTag($form) ?>
-    <dl class="zend_form">
+<dl class="zend_form">
     <?php foreach ($form as $element): ?>
         <?php if (!$element instanceof Zend\Form\Element\Button): ?>
             <dt><?php echo $this->formLabel($element) ?></dt>
@@ -25,8 +26,8 @@ $form->setAttribute('method', 'post');
             <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
         <?php endif ?>
     <?php endforeach ?>
-    </dl>
-    <?php if ($this->redirect): ?>
-        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
-    <?php endif ?>
+</dl>
+<?php if ($this->redirect): ?>
+    <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>"/>
+<?php endif ?>
 <?php echo $this->form()->closeTag() ?>

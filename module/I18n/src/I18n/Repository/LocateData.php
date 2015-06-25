@@ -8,14 +8,13 @@
 
 namespace I18n\Repository;
 
-
 use Doctrine\ORM\EntityRepository;
 
 class LocateData extends EntityRepository
 {
     public function getTranslationsByLocale($locale)
     {
-        if(empty($locale)){
+        if (empty($locale)) {
             return [];
         }
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -24,7 +23,7 @@ class LocateData extends EntityRepository
             ->leftJoin('d.locale', 'l')
             ->where('l.locale = :locale')
             ->setParameter('locale', $locale);
+
         return $qb->getQuery()->getArrayResult();
     }
-
 }

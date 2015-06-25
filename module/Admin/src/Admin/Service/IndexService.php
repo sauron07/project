@@ -14,9 +14,11 @@ class IndexService implements EntityManagerAwareInterface
 
     const ALIAS = 'Admin\IndexService';
 
+    /**
+     * @return string
+     */
     public function test()
     {
         return 'lalka';
     }
-
 }

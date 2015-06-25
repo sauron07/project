@@ -8,7 +8,6 @@
 
 namespace User\Service;
 
-
 use Zend\EventManager\Event;
 
 /**
@@ -23,30 +22,32 @@ class UserRegister
 
     /**
      * Do something before registration
+     *
      * @param Event $e
      */
     public function onRegister(Event $e)
     {
         /** @var \ZfcUser\Service\User $target */
         $target = $e->getTarget();
-        $sm = $target->getServiceManager();
+        $sm     = $target->getServiceManager();
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $sm->get('Doctrine\ORM\EntityManager');
         /** @var \User\Entity\User $user */
-        $user = $e->getParam('user');
+        $user   = $e->getParam('user');
         $config = $sm->get('config');
 
         $criteria = ['roleId' => $config['zfcuser']['new_user_default_role']];
         /** @var \User\Entity\Role $defaultUserRole */
         $defaultUserRole = $em->getRepository('User\Entity\Role')->findOneBy($criteria);
 
-        if($defaultUserRole !== null){
+        if ($defaultUserRole !== null) {
             $user->addRole($defaultUserRole);
         }
     }
 
     /**
      * Do something after registration
+     *
      * @param Event $e
      */
     public function onRegisterPost(Event $e)

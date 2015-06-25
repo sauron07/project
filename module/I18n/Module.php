@@ -2,7 +2,6 @@
 
 namespace I18n;
 
-
 use Application\Interfaces\TranslatorAwareInterface;
 use I18n\Loader\DbLoader;
 use I18n\Translator\Translator;
@@ -15,11 +14,12 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\Service\ControllerLoaderFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Module implements ConfigProviderInterface,
-                        AutoloaderProviderInterface,
-                        ServiceProviderInterface,
-                        ControllerProviderInterface,
-                        ViewHelperProviderInterface
+class Module implements
+    ConfigProviderInterface,
+    AutoloaderProviderInterface,
+    ServiceProviderInterface,
+    ControllerProviderInterface,
+    ViewHelperProviderInterface
 {
 
     /**
@@ -57,22 +57,23 @@ class Module implements ConfigProviderInterface,
     public function getServiceConfig()
     {
         return [
-            'factories' => [
-                'MvcTranslator' => function(ServiceLocatorInterface $sm){
+            'factories'    => [
+                'MvcTranslator'        => function (ServiceLocatorInterface $sm) {
                     $loader = $sm->get('I18n\Loader\DbLoader');
 
                     $translator = new Translator();
                     $translator->getPluginManager()->setService('I18n\Loader\DbLoader', $loader);
                     $translator->addRemoteTranslations('I18n\Loader\DbLoader');
+
                     return $translator;
                 },
-                'I18n\Loader\DbLoader' => function(ServiceLocatorInterface $sm){
+                'I18n\Loader\DbLoader' => function (ServiceLocatorInterface $sm) {
                     return new DbLoader($sm->get('Doctrine\ORM\EntityManager'));
                 }
             ],
             'initializers' => [
-                'Translator' => function($instance, ServiceLocatorInterface $sm){
-                    if($instance instanceof TranslatorAwareInterface){
+                'Translator' => function ($instance, ServiceLocatorInterface $sm) {
+                    if ($instance instanceof TranslatorAwareInterface) {
                         $instance->setTranslator($sm->get('MvcTranslator'));
                     }
                 }
@@ -90,8 +91,8 @@ class Module implements ConfigProviderInterface,
     {
         return [
             'initializers' => [
-                'TranslatorController' => function($instance, ControllerManager $controllerManager){
-                    if($instance instanceof TranslatorAwareInterface){
+                'TranslatorController' => function ($instance, ControllerManager $controllerManager) {
+                    if ($instance instanceof TranslatorAwareInterface) {
                         $instance->setTranslator($controllerManager->getServiceLocator()->get('MvcTranslator'));
                     }
                 }

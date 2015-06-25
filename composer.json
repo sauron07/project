@@ -22,5 +22,8 @@
         "acelaya/zf2-acmailer": "~5.0",
         "jaz303/phake": "^0.6.0",
         "hounddog/doctrine-data-fixture-module": "0.0.*"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer" : "2.*"
     }
 }

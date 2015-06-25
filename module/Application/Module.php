@@ -21,8 +21,9 @@ use Zend\Stdlib\InitializableInterface;
  * Class Module
  * @package Application
  */
-class Module implements ServiceProviderInterface,
-                        ControllerProviderInterface
+class Module implements
+    ServiceProviderInterface,
+    ControllerProviderInterface
 {
     /**
      * @param ModuleManager $moduleManager
@@ -56,9 +57,10 @@ class Module implements ServiceProviderInterface,
      */
     public function initializerCallback($instance)
     {
-        if($instance instanceof InitializableInterface){
+        if ($instance instanceof InitializableInterface) {
             $instance->init();
         }
+
         return $instance;
     }
 
@@ -73,8 +75,9 @@ class Module implements ServiceProviderInterface,
         $config         = $configListener->getMergedConfig(false);
 
         if (array_key_exists('application_entities', $config['doctrine']['driver'])) {
-            unset($config['doctrine']['driver']['application_entities'],
-                  $config['doctrine']['driver']['orm_default']['drivers']['ZfTable\Entity']
+            unset(
+                $config['doctrine']['driver']['application_entities'],
+                $config['doctrine']['driver']['orm_default']['drivers']['ZfTable\Entity']
             );
         }
         $configListener->setMergedConfig($config);
@@ -121,11 +124,12 @@ class Module implements ServiceProviderInterface,
                     }
                 }
             ],
-            'factories' => [
-                'Application\View\UnauthorizedStrategy' => function(ServiceLocatorInterface $sm){
+            'factories'    => [
+                'Application\View\UnauthorizedStrategy' => function (ServiceLocatorInterface $sm) {
                     /** @var RouteNotFoundStrategy $notFoundStrategy */
                     $notFoundStrategy = $sm->get('404strategy');
-                    $auth = $sm->get('zfcuser_auth_service');
+                    $auth             = $sm->get('zfcuser_auth_service');
+
                     return new UnauthorizedStrategy($notFoundStrategy, $auth);
                 }
             ]

@@ -8,8 +8,6 @@
 
 namespace User;
 
-
-use Redis\Storage\RedisStorage;
 use User\Listener\UserListener;
 use User\Service\LoginForm;
 use User\Service\RegisterForm;
@@ -21,20 +19,22 @@ use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
 
-class Module implements AutoloaderProviderInterface,
-                        ConfigProviderInterface,
-                        ControllerProviderInterface,
-                        ServiceProviderInterface
+class Module implements
+    AutoloaderProviderInterface,
+    ConfigProviderInterface,
+    ControllerProviderInterface,
+    ServiceProviderInterface
 {
 
     public function onBootstrap(MvcEvent $event)
     {
         $application = $event->getApplication();
-        $sm = $application->getServiceManager();
-        $em = $application->getEventManager();
+        $sm          = $application->getServiceManager();
+        $em          = $application->getEventManager();
 
         $em->attachAggregate($sm->get(UserListener::ALIAS));
     }
+
     /**
      * Return an array for passing to Zend\Loader\AutoloaderFactory.
      *
@@ -87,11 +87,11 @@ class Module implements AutoloaderProviderInterface,
                 UserRegister::ALIAS => 'User\Service\UserRegister',
                 RegisterForm::ALIAS => 'User\Service\RegisterFrom',
             ],
-            'factories' => [
-                UserListener::ALIAS => function(ServiceManager $serviceManager){
+            'factories'  => [
+                UserListener::ALIAS => function (ServiceManager $serviceManager) {
                     return new UserListener($serviceManager);
                 },
-                LoginForm::ALIAS => function(ServiceManager $serviceManager){
+                LoginForm::ALIAS    => function (ServiceManager $serviceManager) {
                     return new LoginForm($serviceManager);
                 }
             ]

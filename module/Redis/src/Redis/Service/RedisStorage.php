@@ -8,7 +8,6 @@
 
 namespace Redis\Service;
 
-
 use Zend\Cache\StorageFactory;
 use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
@@ -30,7 +29,7 @@ class RedisStorage
     public function __construct($config, $cache)
     {
         $this->config = $config;
-        $this->cache = $cache;
+        $this->cache  = $cache;
     }
 
     public function getManager()

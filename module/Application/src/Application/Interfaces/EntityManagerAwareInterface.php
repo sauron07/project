@@ -21,5 +21,4 @@ interface EntityManagerAwareInterface
      * @return mixed
      */
     public function setEntityManager(EntityManager $em);
-
 }

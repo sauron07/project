@@ -8,7 +8,6 @@
 
 namespace I18n\Service;
 
-
 class LocaleService
 {
 

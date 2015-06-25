@@ -13,11 +13,16 @@ use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 use Zend\Mvc\Controller\ControllerManager;
 
-class Module implements AutoloaderProviderInterface,
-                        ConfigProviderInterface,
-                        ControllerProviderInterface,
-                        ServiceProviderInterface,
-                        ViewHelperProviderInterface
+/**
+ * Class Module
+ * @package Admin
+ */
+class Module implements
+    AutoloaderProviderInterface,
+    ConfigProviderInterface,
+    ControllerProviderInterface,
+    ServiceProviderInterface,
+    ViewHelperProviderInterface
 {
     /**
      * Return an array for passing to Zend\Loader\AutoloaderFactory.
@@ -56,16 +61,18 @@ class Module implements AutoloaderProviderInterface,
         return [
             'invokables' => [
             ],
-            'factories' => [
-                IndexController::ALIAS => function(ControllerManager $cm){
+            'factories'  => [
+                IndexController::ALIAS => function (ControllerManager $cm) {
                     $zfcUserConfig = $cm->getServiceLocator()->get('zfcuser_module_options');
                     $zfcUserConfig->setEnableRegistration(false);
+
                     return new IndexController();
                 },
-                UserController::ALIAS => function (ControllerManager $controllerManager){
+                UserController::ALIAS  => function (ControllerManager $controllerManager) {
                     /** @var UserService $userService */
                     $userService = $controllerManager->getServiceLocator()->get(UserService::ALIAS);
-                    $userTable = $controllerManager->getServiceLocator()->get(User::ALIAS);
+                    $userTable   = $controllerManager->getServiceLocator()->get(User::ALIAS);
+
                     return new UserController($userService, $userTable);
                 }
             ]
@@ -83,8 +90,8 @@ class Module implements AutoloaderProviderInterface,
         return [
             'invokables' => [
                 IndexService::ALIAS => 'Admin\Service\IndexService',
-                UserService::ALIAS => 'Admin\Service\UserService',
-                User::ALIAS => 'Admin\Table\User'
+                UserService::ALIAS  => 'Admin\Service\UserService',
+                User::ALIAS         => 'Admin\Table\User'
             ]
         ];
     }

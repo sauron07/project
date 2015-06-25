@@ -8,7 +8,6 @@
 
 namespace Application\Interfaces;
 
-
 use I18n\Translator\Translator;
 
 interface TranslatorAwareInterface

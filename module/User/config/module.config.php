@@ -1,6 +1,6 @@
 <?php
 return [
-    'doctrine'        => [
+    'doctrine'     => [
         'driver' => [
             'user_entities' => [
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
@@ -17,12 +17,12 @@ return [
     'data-fixture' => array(
         'User_fixture' => __DIR__ . '/../src/User/Fixtures',
     ),
-    'view_manager'    => array(
+    'view_manager' => array(
         'template_path_stack' => array(
             'zfc-user' => __DIR__ . '/../view'
         )
     ),
-    'zfcuser'         => [
+    'zfcuser'      => [
         'logout_redirect_route'   => 'home',
         'new_user_default_role'   => 'user',
         'enable_username'         => true,

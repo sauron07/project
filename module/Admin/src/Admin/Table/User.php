@@ -8,7 +8,6 @@
 
 namespace Admin\Table;
 
-
 use ZfTable\AbstractTable;
 
 /**
@@ -50,13 +49,13 @@ class User extends AbstractTable
                 'staffer' => 'Staffer'
             ]
         ],
-        'state'     => [
+        'state'    => [
             'tableAlias' => 'u', 'title' => 'state', 'sortable' => false, 'width' => '150',
             'filters'    => [
-                null         => 'All',
-                '1'     => 'Active',
-                '2' => 'Registered',
-                '3'    => 'Blocked'
+                null => 'All',
+                '1'  => 'Active',
+                '2'  => 'Registered',
+                '3'  => 'Blocked'
             ]
         ],
         'actions'  => [
@@ -84,13 +83,13 @@ class User extends AbstractTable
         ));
 
         $this->getHeader('username')->getCell()->addDecorator('link', array(
-            'url' => '/admin/user/%s',
+            'url'  => '/admin/user/%s',
             'vars' => array('id')
         ));
 
         $this->getHeader('actions')->getCell()->addDecorator('template', array(
             'template' => '<a href=\'user/edit/%s\'> edit</a>',
-            'vars' => ['id', 'id']
+            'vars'     => ['id', 'id']
         ));
     }
 
@@ -108,13 +107,11 @@ class User extends AbstractTable
         }
 
         if ($value = $this->getParamAdapter()->getValueOfFilter('email')) {
-            $query->andWhere($query->expr()->like('u.email', '?3'))->setParameter('3','%' . $value . '%');
+            $query->andWhere($query->expr()->like('u.email', '?3'))->setParameter('3', '%' . $value . '%');
         }
 
         if ($value = $this->getParamAdapter()->getValueOfFilter('username')) {
-            $query->andWhere($query->expr()->like('u.username', '?4'))->setParameter('4','%' . $value . '%');
+            $query->andWhere($query->expr()->like('u.username', '?4'))->setParameter('4', '%' . $value . '%');
         }
     }
-
-
 }

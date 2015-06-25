@@ -8,10 +8,10 @@
  */
 
 return [
-    'router' => [
+    'router'          => [
         'routes' => [
             'home' => [
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type'    => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
@@ -27,12 +27,12 @@ return [
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory'
         ],
-        'aliases' => [
+        'aliases'            => [
             'translator' => 'MvcTranslator'
         ]
     ],
-    'translator' => [
-        'locale' => 'en_US',
+    'translator'      => [
+        'locale'                    => 'en_US',
         'translation_file_patterns' => [
             [
                 'type'     => 'gettext',
@@ -41,25 +41,25 @@ return [
             ]
         ]
     ],
-    'view_manager' => [
+    'view_manager'    => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
-        'template_map' => [
+        'template_map'             => [
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             'test'                    => __DIR__ . '/../view/error/index.phtml'
         ],
-        'template_path_stack' => [
+        'template_path_stack'      => [
             __DIR__ . '/../view'
         ]
     ],
     // Placeholder for console routes
-    'console' => [
+    'console'         => [
         'router' => [
             'routes' => []
         ]

@@ -2,10 +2,10 @@
 /**
  * BjyAuthorize Module (https://github.com/bjyoungblood/BjyAuthorize)
  *
- * @link https://github.com/bjyoungblood/BjyAuthorize for the canonical source repository
+ * @link    https://github.com/bjyoungblood/BjyAuthorize for the canonical source repository
  * @license http://framework.zend.com/license/new-bsd New BSD License
  */
- 
+
 namespace User\Entity;
 
 use BjyAuthorize\Provider\Role\ProviderInterface;
@@ -83,12 +83,12 @@ class User implements UserInterface, ProviderInterface
      */
     public function isAdmin()
     {
-        foreach($this->roles as $role)
-        {
-            if($role->getRoleId() === 'admin'){
+        foreach ($this->roles as $role) {
+            if ($role->getRoleId() === 'admin') {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -121,7 +121,7 @@ class User implements UserInterface, ProviderInterface
      */
     public function setId($id)
     {
-        $this->id = (int) $id;
+        $this->id = (int)$id;
     }
 
     /**

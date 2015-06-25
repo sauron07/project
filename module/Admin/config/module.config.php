@@ -3,7 +3,7 @@ use Admin\Controllers\IndexController;
 use Admin\Controllers\UserController;
 
 return [
-    'router'       => [
+    'router'             => [
         'routes' => [
             'zfcadmin' => [
                 'may_terminate' => true,
@@ -18,13 +18,13 @@ return [
                             ]
                         ]
                     ],
-                    'test' => [
-                        'type' => 'Segment',
+                    'test'    => [
+                        'type'    => 'Segment',
                         'options' => [
-                            'route' => '/test',
+                            'route'    => '/test',
                             'defaults' => [
                                 'controller' => IndexController::ALIAS,
-                                'action' => 'index',
+                                'action'     => 'index',
                             ]
                         ]
                     ],
@@ -49,7 +49,7 @@ return [
                         ),
                         'may_terminate' => true,
                         'child_routes'  => array(
-                            'ajax' => [
+                            'ajax'     => [
                                 'type'    => 'Literal',
                                 'options' => array(
                                     'route'    => '/ajax',
@@ -71,17 +71,17 @@ return [
                             ]
                         )
                     ),
-                    'user' => [
-                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                    'user'    => [
+                        'type'    => 'Zend\Mvc\Router\Http\Segment',
                         'options' => [
-                            'route' => '/user[/][:action][/][:id]',
+                            'route'       => '/user[/][:action][/][:id]',
                             'constraints' => array(
                                 'action' => 'create|edit',
-                                'id' => '[0-9]*'
+                                'id'     => '[0-9]*'
                             ),
-                            'defaults' => [
+                            'defaults'    => [
                                 'controller' => UserController::ALIAS,
-                                'action' => 'index'
+                                'action'     => 'index'
                             ]
                         ]
                     ]
@@ -89,18 +89,18 @@ return [
             ]
         ]
     ],
-    'zfcadmin'     => array(
+    'zfcadmin'           => array(
         'use_admin_layout'      => true,
         'admin_layout_template' => 'layout/admin'
     ),
     'view_helper_config' => array(
         'flashmessenger' => array(
-            'message_open_format' => '<div%s>',
+            'message_open_format'      => '<div%s>',
             'message_separator_string' => '<br>',
-            'message_close_string' => '</div>'
+            'message_close_string'     => '</div>'
         )
     ),
-    'view_manager' => [
+    'view_manager'       => [
         'template_map'        => [
             'layout/admin' => __DIR__ . '/../view/layout/layout.phtml'
         ],

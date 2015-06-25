@@ -8,9 +8,7 @@
 
 namespace User\Repository;
 
-
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Finder\Expression\Expression;
 
 class UserRepository extends EntityRepository
 {
@@ -18,7 +16,7 @@ class UserRepository extends EntityRepository
     {
         return $this->_em->createQueryBuilder()
             ->select('u, r')
-            ->from($this->_entityName,'u')
+            ->from($this->_entityName, 'u')
             ->join('u.roles', 'r');
     }
 }

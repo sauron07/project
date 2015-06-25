@@ -8,14 +8,13 @@
 
 namespace Application\Traits;
 
-
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Stdlib\ResponseInterface;
 
 trait ExtendAdminTableTrait
 {
     /**
-     * @param ResponseInterface $response
+     * @param ResponseInterface              $response
      * @param                                $html
      *
      * @return HttpResponse
@@ -24,6 +23,7 @@ trait ExtendAdminTableTrait
     {
         $response->setStatusCode(200);
         $response->setContent($html);
+
         return $response;
     }
 }

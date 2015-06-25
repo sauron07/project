@@ -8,7 +8,6 @@
 
 namespace User\Listener;
 
-
 use User\Service\LoginForm;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
@@ -38,14 +37,26 @@ class UserListener extends AbstractListenerAggregate
      */
     public function attach(EventManagerInterface $events)
     {
-        $sharedManager = $events->getSharedManager();
-        $this->listeners[] = $sharedManager->attach('ZfcUser\Service\User', 'register', ['User\Service\UserRegister', 'onRegister']);
-        $this->listeners[] = $sharedManager->attach('ZfcUser\Service\User', 'register.post', ['User\Service\UserRegister', 'onRegisterPost']);
+        $sharedManager     = $events->getSharedManager();
+        $this->listeners[] = $sharedManager->attach('ZfcUser\Service\User', 'register', [
+            'User\Service\UserRegister', 'onRegister'
+        ]);
+        $this->listeners[] = $sharedManager->attach('ZfcUser\Service\User', 'register.post', [
+            'User\Service\UserRegister', 'onRegisterPost'
+        ]);
 
-        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\Register', 'init', ['User\Service\RegisterForm', 'onFormInit']);
-        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\RegisterFilter', 'init', ['User\Service\RegisterForm', 'onFormFilterInit']);
+        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\Register', 'init', [
+            'User\Service\RegisterForm', 'onFormInit'
+        ]);
+        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\RegisterFilter', 'init', [
+            'User\Service\RegisterForm', 'onFormFilterInit'
+        ]);
 
-        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\Login', 'init', [$this->sm->get(LoginForm::ALIAS), 'onFormInit']);
-        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\LoginFilter', 'init', [$this->sm->get(LoginForm::ALIAS), 'onFormFilterInit']);
+        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\Login', 'init', [
+            $this->sm->get(LoginForm::ALIAS), 'onFormInit'
+        ]);
+        $this->listeners[] = $sharedManager->attach('ZfcUser\Form\LoginFilter', 'init', [
+            $this->sm->get(LoginForm::ALIAS), 'onFormFilterInit'
+        ]);
     }
 }

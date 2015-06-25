@@ -8,7 +8,6 @@
 
 namespace User\Fixtures;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -40,7 +39,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return integer
      */
-    function getOrder()
+    public function getOrder()
     {
         return 2;
     }

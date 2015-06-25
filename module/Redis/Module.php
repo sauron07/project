@@ -8,19 +8,17 @@
 
 namespace Redis;
 
-
 use Redis\Service\RedisStorage;
 use Zend\Cache\StorageFactory;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\ServiceManager;
 
-class Module implements AutoloaderProviderInterface,
-                        ConfigProviderInterface,
-                        ServiceProviderInterface
+class Module implements
+    AutoloaderProviderInterface,
+    ConfigProviderInterface,
+    ServiceProviderInterface
 {
 
     /**
@@ -59,10 +57,11 @@ class Module implements AutoloaderProviderInterface,
     {
         return [
             'factories' => [
-                RedisStorage::ALIAS => function(ServiceLocatorInterface $serviceManager){
+                RedisStorage::ALIAS => function (ServiceLocatorInterface $serviceManager) {
                     $config = $serviceManager->get('Config')['redis-session'];
                     /** @var \Zend\Cache\StorageFactory $cache */
                     $cache = StorageFactory::factory($config['redis']);
+
                     return new RedisStorage($config, $cache);
                 }
             ]

@@ -8,7 +8,6 @@
 
 namespace Application\Traits;
 
-
 use I18n\Translator\Translator;
 
 trait TranslatorAwareTrait
@@ -36,5 +35,4 @@ trait TranslatorAwareTrait
     {
         return $this->translator->translate($message, $textDomain, $locale);
     }
-
 }

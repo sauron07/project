@@ -8,7 +8,6 @@
 
 namespace Admin\ViewHelper;
 
-
 use Zend\View\Helper\AbstractHelper;
 
 class StateHelper extends AbstractHelper
@@ -25,5 +24,4 @@ class StateHelper extends AbstractHelper
     {
         return $this->stateMap[$stateId];
     }
-
 }

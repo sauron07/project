@@ -9,7 +9,6 @@
 namespace User\Service;
 
 use Zend\EventManager\Event;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -38,13 +37,13 @@ class LoginForm
     public function onFormInit(Event $event)
     {
         /** @var \ZfcUser\Form\Register $target */
-        $target = $event->getTarget();
+        $target  = $event->getTarget();
         $request = $this->sm->get('request');
-        if(strpos($request->getRequestUri(), '/admin') !== false){
+        if (strpos($request->getRequestUri(), '/admin') !== false) {
             $target->add(
                 array(
-                    'type' => 'Hidden',
-                    'name' => 'redirect',
+                    'type'       => 'Hidden',
+                    'name'       => 'redirect',
                     'attributes' => array(
                         'value' => 'zfcadmin'
                     )

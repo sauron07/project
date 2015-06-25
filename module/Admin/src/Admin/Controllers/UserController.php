@@ -8,13 +8,10 @@
 
 namespace Admin\Controllers;
 
-
 use Admin\Service\UserService;
 use Admin\Table\User;
-use Application\Interfaces\TranslatorAwareInterface;
 use Application\Traits\ExtendAdminTableTrait;
 use Application\Interfaces\ExtendAdminTableInterface;
-use Application\Traits\TranslatorAwareTrait;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -22,9 +19,7 @@ use Zend\View\Model\ViewModel;
  * Class UserController
  * @package Admin\Controllers
  */
-class UserController
-    extends AbstractActionController
-    implements ExtendAdminTableInterface
+class UserController extends AbstractActionController implements ExtendAdminTableInterface
 {
     use ExtendAdminTableTrait;
 
@@ -32,10 +27,14 @@ class UserController
 
     protected $dbAdapter;
 
-    /** @var  UserService */
+    /**
+     * @var  UserService
+     */
     protected $userService;
 
-    /** @var  User */
+    /**
+     * @var  User
+     */
     protected $userTable;
 
     /**
@@ -45,7 +44,7 @@ class UserController
     public function __construct(UserService $userService, User $userTable)
     {
         $this->userService = $userService;
-        $this->userTable = $userTable;
+        $this->userTable   = $userTable;
     }
 
     /**
@@ -54,14 +53,16 @@ class UserController
     public function indexAction()
     {
         $userId = $this->params()->fromRoute('id', false);
-        if(!$userId){
+        if (!$userId) {
             return $this->redirectToList('Empty Id params');
         }
 
-        /** @var \User\Entity\User $user */
+        /**
+         * @var \User\Entity\User $user
+         */
         $user = $this->userService->getEntityManager()->find('User\Entity\User', $userId);
 
-        if(null === $user){
+        if (null === $user) {
             return $this->redirectToList('User not found');
         }
 
@@ -87,7 +88,9 @@ class UserController
     /**
      * Action to display table
      */
-    public function usersAction(){}
+    public function usersAction()
+    {
+    }
 
     /**
      * Action to serve ajax requests
@@ -104,13 +107,12 @@ class UserController
         $form->setInputFilter($filter);
         $form->setData($request->getPost());
 
-        if ($form->isValid()){
+        if ($form->isValid()) {
             $users = $this->userService->listAction();
             $this->userTable->setSource($users)->setParamAdapter($this->getRequest()->getPost());
 
             return $this->prepareHtmlResponse($this->getResponse(), $this->userTable->render());
-        }
-        else{
+        } else {
             return false;
         }
     }
