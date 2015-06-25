@@ -36,6 +36,7 @@ return array(
                 ['controller' => 'ZfcAdmin\Controller\AdminController', 'roles' => ['admin']],
                 //home controllers
                 ['controller' => Application\Controller\IndexController::ALIAS, 'roles' => ['admin', 'guest', 'user']],
+                ['controller' => User\Controllers\UserController::ALIAS, 'roles' => ['admin', 'user', 'guest']],
                 //Admin controllers
                 ['controller' => Admin\Controllers\IndexController::ALIAS, 'roles' => ['admin']],
                 ['controller' => Admin\Controllers\IndexController::ALIAS, 'action' => 'login', 'roles' => ['guest']],

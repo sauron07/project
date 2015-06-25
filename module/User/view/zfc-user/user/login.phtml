@@ -3,7 +3,7 @@
 /** @var \Zend\Form\Form $form */
 $form = $this->loginForm;
 $form->prepare();
-$form->setAttribute('action', $this->url('zfcuser/login'));
+$form->setAttribute('action', $this->url('home/zfcuser/login'));
 $form->setAttribute('method', 'post');
 ?>
 
@@ -32,5 +32,5 @@ $form->setAttribute('method', 'post');
 
 <?php if ($this->enableRegistration) : ?>
     <?php echo $this->translate('Not registered?'); ?> <a
-        href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect=' . $this->escapeUrl($this->redirect) : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
+        href="<?php echo $this->url('home/zfcuser/register') . ($this->redirect ? '?redirect=' . $this->escapeUrl($this->redirect) : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
 <?php endif; ?>

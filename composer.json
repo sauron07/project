@@ -24,6 +24,7 @@
         "hounddog/doctrine-data-fixture-module": "0.0.*"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer" : "2.*"
+        "squizlabs/php_codesniffer" : "2.*",
+        "sebastian/phpcpd": "*"
     }
 }

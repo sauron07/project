@@ -31,3 +31,4 @@ before_script:
 script:
    - ./phake db:clear
    - ./vendor/bin/phpcs -n --standard=PSR2,PSR1 ./module
+   - ./vendor/bin/phpcpd ./module/

@@ -8,16 +8,20 @@
 
 namespace User;
 
+use User\Controllers\UserController;
 use User\Listener\UserListener;
 use User\Service\LoginForm;
+use User\Service\RedirectCallback;
 use User\Service\RegisterForm;
 use User\Service\UserRegister;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
+use ZfcUser\Controller\UserController as ZfcUserController;
 
 class Module implements
     AutoloaderProviderInterface,
@@ -70,7 +74,19 @@ class Module implements
     public function getControllerConfig()
     {
         return [
-            'invokables' => []
+            'invokables' => [
+                UserController::ALIAS => 'User\controllers\UserController'
+            ],
+            'factories' => [
+                'zfcuser' => function (ControllerManager $controllerManager) {
+                    /* @var RedirectCallback $redirectCallback */
+                    $redirectCallback = $controllerManager->getServiceLocator()->get(RedirectCallback::ALIAS);
+                    /* @var ZfcUserController $controller */
+                    $controller = new ZfcUserController($redirectCallback);
+
+                    return $controller;
+                }
+            ]
         ];
     }
 
@@ -88,11 +104,21 @@ class Module implements
                 RegisterForm::ALIAS => 'User\Service\RegisterFrom',
             ],
             'factories'  => [
-                UserListener::ALIAS => function (ServiceManager $serviceManager) {
+                UserListener::ALIAS     => function (ServiceManager $serviceManager) {
                     return new UserListener($serviceManager);
                 },
-                LoginForm::ALIAS    => function (ServiceManager $serviceManager) {
+                LoginForm::ALIAS        => function (ServiceManager $serviceManager) {
                     return new LoginForm($serviceManager);
+                },
+                RedirectCallback::ALIAS => function (ServiceManager $serviceManager) {
+                    /** @var \Zend\Mvc\Application $application */
+                    $application = $serviceManager->get('Application');
+                    /** @var \Zend\Mvc\Router\RouteInterface $route */
+                    $route = $serviceManager->get('Router');
+                    /** @var \ZfcUser\Options\ModuleOptions $options */
+                    $options = $serviceManager->get('zfcuser_module_options');
+
+                    return new RedirectCallback($application, $route, $options);
                 }
             ]
         ];

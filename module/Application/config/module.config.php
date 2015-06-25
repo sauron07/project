@@ -11,10 +11,14 @@ return [
     'router'          => [
         'routes' => [
             'home' => [
-                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                'type'    => 'Segment',
                 'options' => [
-                    'route'    => '/',
+                    'route'    => '[/][:lang]',
+                    'constraints' => [
+                        'lang' => '[A-Za-z]{2}'
+                    ],
                     'defaults' => [
+                        'lang' => 'en',
                         'controller' => \Application\Controller\IndexController::ALIAS,
                         'action'     => 'index'
                     ]
