@@ -12,3 +12,4 @@ matrix:
   allow_failures:
     - php: hhvm
     - php: hhvm-nightly
+script: build.sh
