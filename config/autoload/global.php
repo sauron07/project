@@ -28,7 +28,7 @@ return array(
                 'role_entity_class' => 'User\Entity\Role'
             ]
         ],
-        'unauthorized_strategy' => 'Application\View\UnauthorizedStrategy',
+//        'unauthorized_strategy' => 'Application\View\UnauthorizedStrategy',
         'guards' => [
             'BjyAuthorize\Guard\Controller' => [
                 //Base controllers

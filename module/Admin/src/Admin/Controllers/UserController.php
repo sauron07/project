@@ -11,8 +11,10 @@ namespace Admin\Controllers;
 
 use Admin\Service\UserService;
 use Admin\Table\User;
+use Application\Interfaces\TranslatorAwareInterface;
 use Application\Traits\ExtendAdminTableTrait;
 use Application\Interfaces\ExtendAdminTableInterface;
+use Application\Traits\TranslatorAwareTrait;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 

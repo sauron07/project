@@ -6,7 +6,7 @@ group('db', function(){
         $config = require 'config/autoload/doctrine.local.php';
         $config = $config['doctrine']['connection']['orm_default']['params'];
         $connect = mysql_connect($config['host'], $config['user'], $config['password']);
-        $sql = 'CREATE DATABASE home CHARACTER SET utf8 COLLATE utf8_general_ci;';
+        $sql = 'CREATE DATABASE home CHARACTER SET utf8 COLLATE utf8_general_ci';
         mysql_query($sql, $connect);
         mysql_close($connect);
     });

@@ -10,13 +10,16 @@ namespace Admin\Service;
 
 
 use Application\Interfaces\EntityManagerAwareInterface;
+use Application\Interfaces\TranslatorAwareInterface;
 use Application\Traits\EntityManagerAwareTrait;
-use User\Entity\User;
 use User\Repository\UserRepository;
+use Application\Traits\TranslatorAwareTrait;
 
-class UserService implements EntityManagerAwareInterface
+class UserService implements EntityManagerAwareInterface,
+                             TranslatorAwareInterface
 {
     use EntityManagerAwareTrait;
+    use TranslatorAwareTrait;
 
     const ALIAS = 'Admin\UserService';
 

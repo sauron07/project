@@ -21,7 +21,7 @@ return [
                     'test' => [
                         'type' => 'Segment',
                         'options' => [
-                            'route' => '[/]',
+                            'route' => '/test',
                             'defaults' => [
                                 'controller' => IndexController::ALIAS,
                                 'action' => 'index',

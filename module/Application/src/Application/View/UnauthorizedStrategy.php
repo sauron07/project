@@ -92,7 +92,7 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
         $options['name'] = 'zfcuser/login';
         //redirect if needed to show login form on admin/ route not only admin/login
         if(strpos($match->getMatchedRouteName(), 'zfcadmin') >= 0){
-            $options['name'] = 'home';
+            $options['name'] = 'zfcadmin/login';
         }
 
         if($this->authenticationService->hasIdentity() && $this->authenticationService->getIdentity()->isAdmin()) {

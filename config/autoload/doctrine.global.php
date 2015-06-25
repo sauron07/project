@@ -15,7 +15,8 @@ return [
                     'port'     => '3306',
                     'user'     => 'root',
                     'password' => '',
-                    'dbname'   => 'home'
+                    'dbname'   => 'home',
+                    'charset'  => 'UTF8'
                 ]
             ]
         ]

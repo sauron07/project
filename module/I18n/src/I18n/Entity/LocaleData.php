@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      uniqueConstraints={@ORM\UniqueConstraint(name="unique_key_locale_and_alias", columns={"locale_id", "alias"})},
  *      indexes={@ORM\Index(name="IDX_4AD13BB7E559DFD1", columns={"locale_id"})}
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="I18n\Repository\LocateData")
  */
 class LocaleData
 {
