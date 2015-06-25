@@ -16,10 +16,11 @@ matrix:
 services:
   - redis-server
 
-before_install:
+before_script:
     - composer self-update
 
 install:
    - composer install
 
-script: build.sh
+script:
+   - ./phake db:createDB && ./phake db:clear
