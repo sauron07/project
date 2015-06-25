@@ -18,13 +18,15 @@ matrix:
 services:
   - redis-server
 
-before_script:
+before_install:
     - composer self-update
     - mysql -e "create database IF NOT EXISTS home;" -uroot
-    - echo 'extension=redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 install:
    - composer update
+
+before_script:
+   - echo 'extension=redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
    - ./phake db:clear
