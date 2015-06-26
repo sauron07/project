@@ -1,8 +1,8 @@
 <?php
 /**
  * @author: matveev
- * @date: 6/26/15
- * @time: 2:00 PM
+ * @date  : 6/26/15
+ * @time  : 2:00 PM
  */
 
 namespace Application\MVC;
@@ -45,10 +45,11 @@ class RouteListenerAggregate extends AbstractListenerAggregate
         $routeMatch = $event->getRouteMatch();
 
         //have lang in route and continue to use it
-        if(array_key_exists('lang', $routeMatch->getParams()) && $routeMatch->getParam('lang') !== ''){
-            if($routeMatch->getParam('lang') !== $this->session->offsetGet('lang')){
+        if (array_key_exists('lang', $routeMatch->getParams()) && $routeMatch->getParam('lang') !== '') {
+            if ($routeMatch->getParam('lang') !== $this->session->offsetGet('lang')) {
                 $this->session->offsetSet('lang', $routeMatch->getParam('lang'));
             }
+
             return $routeMatch->setParam('lang', $routeMatch->getParam('lang'));
         }
         $routeMatch->setParam('lang', $this->session->offsetGet('lang') ?: Translator::DEFAULT_LANG);
