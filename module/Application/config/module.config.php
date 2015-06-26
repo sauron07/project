@@ -10,20 +10,32 @@
 return [
     'router'          => [
         'routes' => [
+            'root' => [
+                'type'    => 'Segment',
+                'options' => [
+                    'route'    => '[/]',
+                    'defaults' => [
+                        'controller' => \Application\Controller\IndexController::ALIAS,
+                        'action'     => 'index'
+                    ],
+                ],
+                'may_terminate' => true,
+            ],
             'home' => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'    => '[/][:lang]',
+                    'route'    => '/:lang',
                     'constraints' => [
                         'lang' => '[A-Za-z]{2}'
                     ],
                     'defaults' => [
-                        'lang' => 'en',
+                        'lang' => \I18n\Translator\Translator::DEFAULT_LANG,
                         'controller' => \Application\Controller\IndexController::ALIAS,
                         'action'     => 'index'
-                    ]
-                ]
-            ]
+                    ],
+                ],
+                'may_terminate' => true,
+            ],
         ]
     ],
     'service_manager' => [

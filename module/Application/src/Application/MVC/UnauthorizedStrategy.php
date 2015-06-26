@@ -6,7 +6,7 @@
  * Time: 5:21 PM
  */
 
-namespace Application\View;
+namespace Application\MVC;
 
 use Zend\Authentication\AuthenticationService;
 use Zend\EventManager\EventManagerInterface;
@@ -19,6 +19,8 @@ use Zend\Stdlib\ResponseInterface as Response;
 
 class UnauthorizedStrategy implements ListenerAggregateInterface
 {
+    const ALIAS = 'Application\UnauthorizedStrategy';
+
     /** @var \Zend\Stdlib\CallbackHandler[] */
     protected $listeners = array();
 
@@ -89,7 +91,7 @@ class UnauthorizedStrategy implements ListenerAggregateInterface
         }
 
         //get url to the zfcuser/login route
-        $options['name'] = 'zfcuser/login';
+        $options['name'] = 'home/zfcuser/login';
         //redirect if needed to show login form on admin/ route not only admin/login
         if (strpos($match->getMatchedRouteName(), 'zfcadmin') >= 0) {
             $options['name'] = 'zfcadmin/login';

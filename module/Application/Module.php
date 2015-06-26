@@ -4,7 +4,8 @@ namespace Application;
 
 use Application\Controller\IndexController;
 use Application\Interfaces\EntityManagerAwareInterface;
-use Application\View\UnauthorizedStrategy;
+use Application\MVC\RouteListenerAggregate;
+use Application\MVC\UnauthorizedStrategy;
 use Redis\Service\RedisStorage;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
@@ -15,6 +16,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\Http\RouteNotFoundStrategy;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Session\Container;
 use Zend\Stdlib\InitializableInterface;
 
 /**
@@ -39,15 +41,17 @@ class Module implements
      */
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        $eventManager = $e->getApplication()->getEventManager();
         /** @var ServiceManager $serviceManager */
         $serviceManager = $e->getApplication()->getServiceManager();
-        $serviceManager->addInitializer([$this, 'initializerCallback']);
+
         /** @var \Redis\Service\RedisStorage $storage */
         $storage = $serviceManager->get(RedisStorage::ALIAS);
         $storage->setSessionStorage();
+        $moduleRouteListener = new ModuleRouteListener();
+        $eventManager->attachAggregate($serviceManager->get(RouteListenerAggregate::ALIAS));
+        $moduleRouteListener->attach($eventManager);
+        $serviceManager->addInitializer([$this, 'initializerCallback']);
     }
 
     /**
@@ -125,12 +129,18 @@ class Module implements
                 }
             ],
             'factories'    => [
-                'Application\View\UnauthorizedStrategy' => function (ServiceLocatorInterface $sm) {
+                UnauthorizedStrategy::ALIAS => function (ServiceLocatorInterface $sm) {
                     /** @var RouteNotFoundStrategy $notFoundStrategy */
                     $notFoundStrategy = $sm->get('404strategy');
                     $auth             = $sm->get('zfcuser_auth_service');
 
                     return new UnauthorizedStrategy($notFoundStrategy, $auth);
+                },
+                RouteListenerAggregate::ALIAS           => function () {
+                    /** @var Container $sessionContainer */
+                    $sessionContainer = new Container();
+
+                    return new RouteListenerAggregate($sessionContainer);
                 }
             ]
         ];

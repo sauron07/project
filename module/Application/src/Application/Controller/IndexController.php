@@ -10,11 +10,17 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
     const ALIAS = 'Application\IndexController';
+
+    public function onBootstrap(MvcEvent $event)
+    {
+        var_dump($event->getRouteMatch()->getParams());
+    }
 
     public function indexAction()
     {

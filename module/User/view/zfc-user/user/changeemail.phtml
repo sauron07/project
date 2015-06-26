@@ -10,7 +10,7 @@
 $form = $this->changeEmailForm;
 
 $form->prepare();
-$form->setAttribute('action', $this->url('home/zfcuser/changeemail'));
+$form->setAttribute('action', $this->url('home/zfcuser/changeemail', [], true));
 $form->setAttribute('method', 'post');
 
 ?>

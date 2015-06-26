@@ -71,6 +71,7 @@ class Module implements
                 UserController::ALIAS  => function (ControllerManager $controllerManager) {
                     /** @var UserService $userService */
                     $userService = $controllerManager->getServiceLocator()->get(UserService::ALIAS);
+                    /** @var User $userTable */
                     $userTable   = $controllerManager->getServiceLocator()->get(User::ALIAS);
 
                     return new UserController($userService, $userTable);

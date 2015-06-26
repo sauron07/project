@@ -28,7 +28,7 @@ return array(
                 'role_entity_class' => 'User\Entity\Role'
             ]
         ],
-//        'unauthorized_strategy' => 'Application\View\UnauthorizedStrategy',
+        'unauthorized_strategy' => \Application\MVC\UnauthorizedStrategy::ALIAS,
         'guards' => [
             'BjyAuthorize\Guard\Controller' => [
                 //Base controllers
@@ -41,6 +41,7 @@ return array(
                 ['controller' => Admin\Controllers\IndexController::ALIAS, 'roles' => ['admin']],
                 ['controller' => Admin\Controllers\IndexController::ALIAS, 'action' => 'login', 'roles' => ['guest']],
                 ['controller' => Admin\Controllers\UserController::ALIAS, 'roles' => ['admin']],
+                ['controller' => 'ZfcAdmin\Controller\AdminController', 'roles' => ['admin']]
             ]
         ]
     ]

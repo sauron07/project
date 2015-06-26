@@ -16,6 +16,8 @@ use \Zend\I18n\Translator\Translator as MvcTranslator;
  */
 class Translator extends MvcTranslator
 {
+    const DEFAULT_LANG = 'en';
+
     /**
      * @param string $message
      * @param string $textDomain

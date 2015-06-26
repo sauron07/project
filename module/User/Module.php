@@ -18,6 +18,7 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\Mvc\Application;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
@@ -74,9 +75,6 @@ class Module implements
     public function getControllerConfig()
     {
         return [
-            'invokables' => [
-                UserController::ALIAS => 'User\controllers\UserController'
-            ],
             'factories' => [
                 'zfcuser' => function (ControllerManager $controllerManager) {
                     /* @var RedirectCallback $redirectCallback */
@@ -85,6 +83,11 @@ class Module implements
                     $controller = new ZfcUserController($redirectCallback);
 
                     return $controller;
+                },
+                UserController::ALIAS => function (ControllerManager $controllerManager) {
+                    /** @var Application $application */
+                    $application = $controllerManager->getServiceLocator()->get('Application');
+                    return new UserController($application);
                 }
             ]
         ];

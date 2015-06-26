@@ -7,7 +7,10 @@
 
 namespace User\Controllers;
 
+use Zend\Mvc\Application;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\Router\RouteInterface;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -19,10 +22,18 @@ class UserController extends AbstractActionController
 {
     const ALIAS = 'User\UserController';
 
+    /** @var  RouteMatch */
+    protected $routeMatch;
+
+    public function __construct(Application $application)
+    {
+        $this->routeMatch = $application->getMvcEvent()->getRouteMatch();
+    }
+
     public function indexAction()
     {
         if (!$this->zfcUserAuthentication()->hasIdentity()) {
-            return $this->redirect()->toRoute('home/zfcuser/login');
+            return $this->redirect()->toRoute('home/zfcuser/login', $this->routeMatch->getParams());
         }
         return new ViewModel();
     }

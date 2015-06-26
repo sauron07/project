@@ -3,7 +3,6 @@ return [
     'router'       => array(
         'routes' => array(
             'home' => [
-                'may_terminate' => true,
                 'child_routes'  => [
                     'zfcuser' => array(
                         'type'          => 'Literal',
