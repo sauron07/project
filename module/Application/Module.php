@@ -76,7 +76,7 @@ class Module implements
     public function onMergeConfig(ModuleEvent $e)
     {
         $configListener = $e->getConfigListener();
-        $config         = $configListener->getMergedConfig(false);
+        $config = $configListener->getMergedConfig(false);
 
         if (array_key_exists('application_entities', $config['doctrine']['driver'])) {
             unset(
@@ -128,19 +128,21 @@ class Module implements
                     }
                 }
             ],
-            'factories'    => [
+            'factories' => [
                 UnauthorizedStrategy::ALIAS => function (ServiceLocatorInterface $sm) {
                     /** @var RouteNotFoundStrategy $notFoundStrategy */
                     $notFoundStrategy = $sm->get('404strategy');
-                    $auth             = $sm->get('zfcuser_auth_service');
+                    $auth = $sm->get('zfcuser_auth_service');
 
                     return new UnauthorizedStrategy($notFoundStrategy, $auth);
                 },
-                RouteListenerAggregate::ALIAS           => function () {
+                RouteListenerAggregate::ALIAS => function (ServiceLocatorInterface $sm) {
                     /** @var Container $sessionContainer */
-                    $sessionContainer = new Container();
-
+                    $sessionContainer = $sm->get('sessionContainer');
                     return new RouteListenerAggregate($sessionContainer);
+                },
+                'sessionContainer' => function () {
+                    return new Container();
                 }
             ]
         ];

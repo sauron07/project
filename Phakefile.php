@@ -3,7 +3,7 @@ group('db', function(){
 
     desc('Create DB');
     task('createDB', function(){
-        $config = require 'config/autoload/doctrine.local.php';
+        $config = require 'config/autoload/doctrine.global.php';
         $config = $config['doctrine']['connection']['orm_default']['params'];
         $connect = mysql_connect($config['host'], $config['user'], $config['password']);
         $sql = 'CREATE DATABASE home CHARACTER SET utf8 COLLATE utf8_general_ci';

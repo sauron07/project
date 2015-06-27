@@ -14,4 +14,7 @@ return [
             ]
         ]
     ],
+    'data-fixture' => array(
+        'Locale_fixture' => __DIR__ . '/../src/I18n/Fixtures',
+    ),
 ];

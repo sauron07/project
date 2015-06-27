@@ -11,8 +11,9 @@ use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 use Zend\Mvc\Controller\ControllerManager;
-use Zend\Mvc\Service\ControllerLoaderFactory;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Session\Container;
 
 class Module implements
     ConfigProviderInterface,
@@ -57,11 +58,15 @@ class Module implements
     public function getServiceConfig()
     {
         return [
-            'factories'    => [
-                'MvcTranslator'        => function (ServiceLocatorInterface $sm) {
+            'factories' => [
+                'MvcTranslator' => function (ServiceLocatorInterface $sm) {
                     $loader = $sm->get('I18n\Loader\DbLoader');
+                    /** @var RouteMatch $application */
+                    $routeMatch = $sm->get('Application')->getMvcEvent()->getRouteMatch();
+                    /** @var Container $sessionContainer */
+                    $sessionContainer = $sm->get('sessionContainer');
 
-                    $translator = new Translator();
+                    $translator = new Translator($routeMatch, $sessionContainer);
                     $translator->getPluginManager()->setService('I18n\Loader\DbLoader', $loader);
                     $translator->addRemoteTranslations('I18n\Loader\DbLoader');
 
